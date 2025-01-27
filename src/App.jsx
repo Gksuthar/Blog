@@ -9,7 +9,8 @@ function App() {
   const [showLogin, setShowLogin] = useState(false);
   const [token, setToken] = useState(localStorage.getItem('token') || null); // Retrieve token from localStorage
 
-  const url = 'http://172.20.10.4:1000'; // Define your base URL here
+  const url = 'https://blog-oritg5lkf-ganeshs-projects-3b7848cf.vercel.app'; 
+  // // Use your Vercel URL here
 
   const logout = () => {
     localStorage.removeItem('token');
