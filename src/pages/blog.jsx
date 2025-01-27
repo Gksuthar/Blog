@@ -36,7 +36,7 @@ const Blog = ({url, token, setShowLogin }) => {
           <div className="flex flex-col md:flex-row">
             <div className="md:w-1/2 mb-6 md:mb-0">
               <img
-                className="w-full h-64 object-cover rounded-lg"
+                className="w-auto h-64 object-cover rounded-lg"
                 alt="Blog Post"
                 src={data.img || "https://via.placeholder.com/600x400"}
               />
