@@ -68,7 +68,7 @@ const LoginPage = ({ url, setShowLogin, setToken }) => {
       />
       <form
         onSubmit={onLogin}
-        className="flex flex-col gap-6 p-4 rounded-lg bg-white text-gray-600 animate-fadeIn shadow-2xl w-[90vw] sm:w-[min(43vw,330px)] mx-auto sm:px-4 sm:py-6"
+        className="flex flex-col  gap-6 p-4 rounded-lg bg-white text-gray-600 animate-fadeIn shadow-2xl  w-[min(43vw,330px)] mx-auto sm:px-4 sm:py-6"
       >
         <div className="flex justify-between items-center text-black">
           <h2>{currState}</h2>
