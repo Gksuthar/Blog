@@ -56,7 +56,7 @@ const HomePage = ({ url }) => {
                     </h2>
                     <button
                       onClick={() => handleReadMore(item._id)} // Pass the blog post id to the handler
-                      className="bg-indigo-500 text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 px-6 p-2 rounded-md text-base font-semibold mt-2 transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg "
+                      className="bg-indigo-500 text-white hover:cursor-pointer hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 px-6 p-2 rounded-md text-base font-semibold mt-2 transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg "
                     >
                       Read More
                     </button>
