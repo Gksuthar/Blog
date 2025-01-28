@@ -9,7 +9,7 @@ function App() {
   const [showLogin, setShowLogin] = useState(false);
   const [token, setToken] = useState(localStorage.getItem('token') || null); // Retrieve token from localStorage
 
-  const url = 'http://127.0.0.1:1000'; // Define your base URL here
+  const url = 'https://blogg-uiis.onrender.com'; // Define your base URL here
 
   const logout = () => {
     localStorage.removeItem('token');
