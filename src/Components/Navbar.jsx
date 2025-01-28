@@ -17,9 +17,7 @@ const Navbar = ({setShowLogin,logout,token}) => {
     </a>
     <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
       <Link to='/' class="mr-5 hover:text-gray-900">Home</Link>
-      <Link class="mr-5 hover:text-gray-900">Lucifer</Link>
-      <Link class="mr-5 hover:text-gray-900"> Link </Link>
-      <Link class="mr-5 hover:text-gray-900">Fourth Link</Link>
+      <Link to='/about' class="mr-5 hover:text-gray-900">About</Link>
     </nav>
     {!token ? (
       <button onClick={()=>setShowLogin(true)} 
