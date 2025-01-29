@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 
-const Blog = ({ url, token, setShowLogin }) => {
+const Blog = ({   url, token, setShowLogin }) => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [comments, setComments] = useState([]);
@@ -37,7 +37,7 @@ const Blog = ({ url, token, setShowLogin }) => {
 
   const fetchComments = async (postId) => {
     try {
-      const response = await axios.get(`${url}/api/getComment?postId=${postId}`);
+      const response = await axios.get(`${url}/api/getComment?postId=6797138abfa679fb044a55a0`);
       setComments(response.data.data);
     } catch (error) {
       console.error("Error fetching comments:", error);
