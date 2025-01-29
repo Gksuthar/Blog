@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
 
-const Blog = ({   url, token, setShowLogin }) => {
+const Blog = ({ url, token, setShowLogin }) => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [comments, setComments] = useState([]);
@@ -37,7 +38,9 @@ const Blog = ({   url, token, setShowLogin }) => {
 
   const fetchComments = async (postId) => {
     try {
-      const response = await axios.get(`${url}/api/getComment?postId=${postId}`);
+      const response = await axios.get(
+        `${url}/api/getComment?postId=${postId}`
+      );
       setComments(response.data.data);
     } catch (error) {
       console.error("Error fetching comments:", error);
@@ -65,8 +68,21 @@ const Blog = ({   url, token, setShowLogin }) => {
         name: newComment.name,
         comment: newComment.comment,
       });
-      setComments([...comments, response.data.data]);
-      setNewComment({ name: "", comment: "" }); 
+      if (response) { 
+        setComments([...comments, response.data.data]);
+        toast('Comment Posted Successfully!', {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
+      }
+
+      setNewComment({ name: "", comment: "" });
     } catch (error) {
       console.error("Error submitting comment:", error);
     }
@@ -74,6 +90,18 @@ const Blog = ({   url, token, setShowLogin }) => {
 
   return (
     <div className="bg-gradient-to-r from-gray-50 to-gray-100 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       {isLoading ? (
         <div className="flex justify-center items-center h-screen">
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
@@ -89,8 +117,12 @@ const Blog = ({   url, token, setShowLogin }) => {
           </div>
 
           <div className="mt-8">
-            <h1 className="text-4xl font-bold text-gray-800 mb-6">{data.title}</h1>
-            <p className="text-gray-600 text-lg leading-relaxed">{data.content}</p>
+            <h1 className="text-4xl font-bold text-gray-800 mb-6">
+              {data.title}
+            </h1>
+            <p className="text-gray-600 text-lg leading-relaxed">
+              {data.content}
+            </p>
           </div>
 
           <div className="mt-8">
@@ -111,7 +143,9 @@ const Blog = ({   url, token, setShowLogin }) => {
           </div>
 
           <div className="mt-8">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">Leave a Comment</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">
+              Leave a Comment
+            </h2>
             <form onSubmit={handleCommentSubmit}>
               <div className="mb-4">
                 <input
@@ -166,7 +200,9 @@ const Blog = ({   url, token, setShowLogin }) => {
           </div>
         </div>
       ) : (
-        <div className="text-center text-gray-600 text-lg">No blog data found.</div>
+        <div className="text-center text-gray-600 text-lg">
+          No blog data found.
+        </div>
       )}
     </div>
   );
