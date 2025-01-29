@@ -67,7 +67,7 @@ const HomePage = ({ url }) => {
           </div>
         </section>
       ) : (
-        "Your dataSet is Empty"
+        "Page is Loading..."
       )}
     </div>
   );
