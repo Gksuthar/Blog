@@ -37,7 +37,7 @@ const Blog = ({   url, token, setShowLogin }) => {
 
   const fetchComments = async (postId) => {
     try {
-      const response = await axios.get(`${url}/api/getComment?postId=6797138abfa679fb044a55a0`);
+      const response = await axios.get(`${url}/api/getComment?postId=${postId}`);
       setComments(response.data.data);
     } catch (error) {
       console.error("Error fetching comments:", error);
