@@ -121,7 +121,7 @@ const Blog = ({ url, token, setShowLogin }) => {
               {data.title}
             </h1>
             <p className="text-gray-600 text-lg leading-relaxed">
-              {data.content}
+              {data.content.substring(0,1000)}
             </p>
           </div>
 
