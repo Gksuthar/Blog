@@ -106,7 +106,7 @@ const Blog = ({   url, token, setShowLogin }) => {
                 </div>
               ))
             ) : (
-              <p className="text-gray-600">No comments yet...</p>
+              <p className="text-gray-600">No comments yet.</p>
             )}
           </div>
 
