@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css'; // Make sure to import the CSS
+import 'react-toastify/dist/ReactToastify.css';
 
 const LoginPage = ({ url, setShowLogin, setToken }) => {
   const [currState, setCurrState] = useState("Sign Up");
@@ -31,7 +31,7 @@ const LoginPage = ({ url, setShowLogin, setToken }) => {
 
       if (response.data.success) {
         localStorage.setItem("token", response.data.token);
-        setToken(response.data.token);  
+        setToken(response.data.token);
         toast("Login Successful!", {
           position: "top-right",
           autoClose: 2000,
@@ -53,10 +53,10 @@ const LoginPage = ({ url, setShowLogin, setToken }) => {
   };
 
   return (
-    <div className="z-10 w-full h-full bg-black bg-opacity-60 grid place-items-center ">
+    <div className="z-10 w-full h-full  bg-opacity-60 grid place-items-center fixed top-0 left-0">
       <ToastContainer
         position="top-right"
-        autoClose={2000 }
+        autoClose={2000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick={false}
@@ -68,10 +68,32 @@ const LoginPage = ({ url, setShowLogin, setToken }) => {
       />
       <form
         onSubmit={onLogin}
-        className="flex flex-col  gap-6 p-4 rounded-lg bg-white text-gray-600 animate-fadeIn shadow-2xl  w-[min(43vw,330px)] mx-auto sm:px-4 sm:py-6"
+        className="flex flex-col gap-6 p-4 rounded-lg bg-white text-gray-600 animate-fadeIn shadow-2xl w-[min(43vw,330px)] mx-auto sm:px-4 sm:py-6 relative"
       >
+        {/*  Button */}
+        <button
+          type="button"
+          onClick={() => setShowLogin(false)}
+          className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 focus:outline-none hover:cursor-pointer"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+
         <div className="flex justify-between items-center text-black">
-          <h2>{currState}</h2>
+          <h2 className="text-xl font-semibold">{currState}</h2>
         </div>
         <div className="flex flex-col gap-5">
           {currState === "Sign Up" && (
@@ -140,5 +162,6 @@ const LoginPage = ({ url, setShowLogin, setToken }) => {
       </form>
     </div>
   );
-}
+};
+
 export default LoginPage;

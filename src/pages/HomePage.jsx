@@ -1,44 +1,50 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"; // Import useNavigate instead of useHistory
+import { useNavigate } from "react-router-dom";
 
 const HomePage = ({ url }) => {
   const [data, setData] = useState([]);
-  const navigate = useNavigate(); // Use useNavigate hook for redirection
+  const [isLoading, setIsLoading] = useState(true); // Add a loading state
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getData = async () => {
       try {
         const response = await axios.get(`${url}/api/getBlogs`);
         if (response.status === 200) {
-          console.log(response.data.data);
           setData(response.data.data);
         } else {
           console.error("Error fetching data:", response);
         }
       } catch (error) {
         console.error("Error: " + error);
+      } finally {
+        setIsLoading(false); // Set loading to false when data is fetched (or if there's an error)
       }
     };
-    // if (/url) {
+
     getData();
-    // }
-  }, []);
+  }, [url]);
 
   const handleReadMore = (id) => {
-    navigate(`/blog?id=${id}`); // Use navigate instead of history.push
+    navigate(`/blog?id=${id}`);
   };
 
   return (
     <div className="">
-      {data.length > 0 ? (
-        <section className=" text-gray-600  ">
+      {isLoading ? (
+        // Tailwind CSS Spinner
+        <div className="flex justify-center items-center h-screen">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
+        </div>
+      ) : data.length > 0 ? (
+        <section className="text-gray-600">
           <div className="container px-5 py-24 mx-auto">
-            <div className="flex flex-wrap -m-4 justify-center justify-items-end gap-4  px-4 ">
+            <div className="flex flex-wrap -m-4 justify-center justify-items-end gap-4 px-4">
               {data.map((item, index) => (
                 <div
                   key={index + 1}
-                  className="lg:w-1/4 md:w-1/2 p-4 w-full  border border-gray-200 shadow-2xl flex flex-col animate-fadeIn transform hover:scale-105 transition-transform duration-300 ease-in-out"
+                  className="lg:w-1/4 md:w-1/2 p-4 w-full border border-gray-200 shadow-2xl flex flex-col animate-fadeIn transform hover:scale-105 transition-transform duration-300 ease-in-out"
                 >
                   <a className="block relative h-48 rounded overflow-hidden">
                     <img
@@ -55,8 +61,8 @@ const HomePage = ({ url }) => {
                       {item.content.substring(0, 100)}...
                     </h2>
                     <button
-                      onClick={() => handleReadMore(item._id)} // Pass the blog post id to the handler
-                      className="bg-indigo-500 text-white hover:cursor-pointer hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 px-6 p-2 rounded-md text-base font-semibold mt-2 transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg "
+                      onClick={() => handleReadMore(item._id)}
+                      className="bg-indigo-500 text-white hover:cursor-pointer hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 px-6 p-2 rounded-md text-base font-semibold mt-2 transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
                     >
                       Read More
                     </button>
@@ -67,7 +73,7 @@ const HomePage = ({ url }) => {
           </div>
         </section>
       ) : (
-        "Page is Loading..."
+        <div className="text-center text-gray-600">No data found.</div>
       )}
     </div>
   );
