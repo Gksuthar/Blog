@@ -1,11 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { CiDark } from "react-icons/ci";
+import { CiLight } from "react-icons/ci";
 
-const Navbar = ({setShowLogin,logout,token}) => {
+const Navbar = ({setShowLogin,logout,token,darkmode,toggleDarkMode }) => {
   // const tokens = logout()
   return (
     <div>
-      <header class="text-gray-600 body-font">
+      <header class=" body-font">
   <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
     <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
      <img 
@@ -18,6 +20,12 @@ const Navbar = ({setShowLogin,logout,token}) => {
     <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
       <Link to='/' class="mr-5 hover:text-gray-900">Home</Link>
       <Link to='/about' class="mr-5 hover:text-gray-900">About</Link>
+      {!darkmode ? (
+
+        <CiDark onClick={toggleDarkMode} className="text-2xl hover:cursor-pointer" />
+      ) :  
+        <CiLight onClick={toggleDarkMode}  className="text-2xl hover:cursor-pointer" />
+      }
     </nav>
     {!token ? (
       <button onClick={()=>setShowLogin(true)} 

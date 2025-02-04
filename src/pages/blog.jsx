@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 
-const Blog = ({ url, token, setShowLogin }) => {
+const Blog = ({ url, token, setShowLogin, darkmode }) => {  // Added darkmode prop
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [comments, setComments] = useState([]);
@@ -79,7 +79,7 @@ const Blog = ({ url, token, setShowLogin }) => {
           draggable: true,
           progress: undefined,
           theme: "light",
-          });
+        });
       }
 
       setNewComment({ name: "", comment: "" });
@@ -89,7 +89,7 @@ const Blog = ({ url, token, setShowLogin }) => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-gray-50 to-gray-100 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+    <div className={`min-h-screen py-12 px-4 sm:px-6 lg:px-8 ${darkmode ? "bg-gray-900 text-white" : "bg-white text-gray-900"}`}>
       <ToastContainer
         position="top-right"
         autoClose={2000}
@@ -107,7 +107,7 @@ const Blog = ({ url, token, setShowLogin }) => {
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
         </div>
       ) : data ? (
-        <div className="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-2xl  hover:shadow-3xl">
+        <div className={`max-w-4xl mx-auto p-8 rounded-xl shadow-2xl ${darkmode ? "bg-gray-800" : "bg-white"}`}>
           <div className="overflow-hidden rounded-lg shadow-lg">
             <img
               className="w-full h-96 object-cover transform hover:scale-110 transition-transform duration-500"
@@ -117,35 +117,33 @@ const Blog = ({ url, token, setShowLogin }) => {
           </div>
 
           <div className="mt-8">
-            <h1 className="text-4xl font-bold text-gray-800 mb-6">
+            <h1 className="text-4xl font-bold mb-6">
               {data.title}
             </h1>
-            <p className="text-gray-600 text-lg leading-relaxed">
-              {data.content} 
+            <p className="text-lg leading-relaxed">
+              {data.content}
             </p>
           </div>
 
           <div className="mt-8">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">Comments</h2>
+            <h2 className="text-2xl font-bold mb-4">Comments</h2>
             {comments.length > 0 ? (
               comments.map((comment, index) => (
-                <div key={index} className="mb-4 p-4 bg-gray-50 rounded-lg">
-                  <p className="text-gray-800 font-semibold">{comment.name}</p>
-                  <p className="text-gray-600">{comment.comment}</p>
-                  <p className="text-sm text-gray-400 mt-2">
+                <div key={index} className={`mb-4 p-4 rounded-lg ${darkmode ? "bg-gray-700" : "bg-gray-50"}`}>
+                  <p className="font-semibold">{comment.name}</p>
+                  <p>{comment.comment}</p>
+                  <p className="text-sm">
                     {new Date(comment.createdAt).toLocaleString()}
                   </p>
                 </div>
               ))
             ) : (
-              <p className="text-gray-600">No comments yet.</p>
+              <p>No comments yet.</p>
             )}
           </div>
 
           <div className="mt-8">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">
-              Leave a Comment
-            </h2>
+            <h2 className="text-2xl font-bold mb-4">Leave a Comment</h2>
             <form onSubmit={handleCommentSubmit}>
               <div className="mb-4">
                 <input
